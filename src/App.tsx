@@ -1,48 +1,74 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+  BookOpen,
+  Bot,
+  LibraryBig,
+  Settings,
+} from "lucide-react";
+import {
+  HashRouter,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+import { AppLayout } from "@/layouts/app-layout";
+import { DashboardPage } from "@/pages/dashboard-page";
+import { FeaturePage } from "@/pages/feature-page";
 
 function App() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-950 p-6 text-white">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <div className="mb-2">
-            <Badge variant="secondary">Prototipe Lokal</Badge>
-          </div>
+    <HashRouter>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route index element={<DashboardPage />} />
 
-          <CardTitle className="text-2xl">
-            Mandarin AI Tutor
-          </CardTitle>
+          <Route
+            path="/practice"
+            element={
+              <FeaturePage
+                title="Latihan Mandarin"
+                description="Latihan soal dan koreksi jawaban pengguna."
+                icon={BookOpen}
+              />
+            }
+          />
 
-          <CardDescription>
-            Belajar bahasa Mandarin secara interaktif bersama guru AI.
-          </CardDescription>
-        </CardHeader>
+          <Route
+            path="/tutor"
+            element={
+              <FeaturePage
+                title="Guru AI"
+                description="Berinteraksi dan berdiskusi dengan guru Mandarin berbasis AI."
+                icon={Bot}
+              />
+            }
+          />
 
-        <CardContent className="space-y-3">
-          <p className="text-sm text-muted-foreground">
-            Persiapan aplikasi
-          </p>
+          <Route
+            path="/vocabulary"
+            element={
+              <FeaturePage
+                title="Kosakata"
+                description="Pelajari kosakata Mandarin, pinyin, dan terjemahannya."
+                icon={LibraryBig}
+              />
+            }
+          />
 
-          <Progress value={30} />
-        </CardContent>
+          <Route
+            path="/settings"
+            element={
+              <FeaturePage
+                title="Pengaturan"
+                description="Atur model AI, suara, dan konfigurasi aplikasi."
+                icon={Settings}
+              />
+            }
+          />
 
-        <CardFooter>
-          <Button className="w-full">
-            Mulai Belajar
-          </Button>
-        </CardFooter>
-      </Card>
-    </main>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </HashRouter>
   );
 }
 
